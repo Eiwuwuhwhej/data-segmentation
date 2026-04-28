@@ -1,0 +1,152 @@
+📄 PRODUCT REQUIREMENTS DOCUMENT (PRD)
+Project: Customer Segmentation Dashboard (Minimal Web Version)
+1. Product Overview
+
+A lightweight web application that allows users to upload a CSV file, processes customer data using RFM analysis and K-Means clustering on a backend server, and displays the results on a simple dashboard.
+
+Architecture Constraint:
+
+Frontend: Static (HTML, CSS, JS hosted on Firebase)
+Backend: Python Flask API (hosted separately)
+
+Core Goal:
+Upload → Analyze → Visualize (fast and simple)
+
+2. Scope (Strict MVP — no nonsense)
+INCLUDED:
+CSV upload
+Data processing (RFM)
+K-Means clustering
+Basic charts
+Results display
+EXCLUDED:
+Authentication
+Database
+User accounts
+Real-time sync
+Advanced ML models
+3. Target Users
+Small business owners
+Students (demo/project use)
+Non-technical users needing quick insights
+4. User Flow
+User opens website
+Uploads CSV file
+Clicks “Analyze”
+System sends file to backend
+Backend processes data
+Results returned
+Dashboard displays:
+Customer segments
+Charts
+Table
+5. Functional Requirements
+5.1 File Upload (Frontend)
+Accept .csv files only
+Validate file size (<10MB)
+Show error if invalid
+5.2 API Communication
+Endpoint: /analyze
+Method: POST
+Payload: FormData (CSV file)
+5.3 Data Processing (Backend)
+
+Steps:
+
+Read CSV using Pandas
+Drop missing values
+Convert dates
+Aggregate per customer
+5.4 RFM Calculation
+Recency → Days since last purchase
+Frequency → Number of transactions
+Monetary → Total spend
+5.5 Clustering
+Standardize RFM values
+Apply K-Means (k = 3)
+Assign labels:
+High Value
+Medium Value
+Low Value
+5.6 Response Format (Backend → Frontend)
+{
+  "clusters": [
+    { "customer_id": 101, "segment": "High Value" }
+  ],
+  "summary": {
+    "High Value": 20,
+    "Medium Value": 50,
+    "Low Value": 30
+  },
+  "chart_data": {
+    "labels": ["High", "Medium", "Low"],
+    "values": [20, 50, 30]
+  }
+}
+5.7 Dashboard Display (Frontend)
+
+Must show:
+
+📊 Bar Chart → Segment distribution
+🔵 Scatter Plot → Cluster visualization
+📋 Table → Customer + segment
+6. Non-Functional Requirements
+Response time < 10 seconds
+Clean UI (no clutter)
+Works on desktop browsers
+Basic error handling
+7. Project Structure (Locked)
+project/
+│
+├── public/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+│
+├── backend/
+│   ├── app.py
+│   └── requirements.txt
+8. Tech Stack
+Frontend
+HTML
+CSS
+JavaScript
+Chart.js
+Backend
+Python
+Flask
+Pandas
+Scikit-learn
+9. API Specification
+POST /analyze
+
+Input:
+
+CSV file
+
+Output:
+
+JSON (clusters + summary + chart data)
+10. Data Requirements (Strict)
+
+CSV must include:
+
+CustomerID
+InvoiceDate
+Amount
+
+If missing → reject request
+
+11. Error Handling
+
+Frontend:
+
+Invalid file type
+File too large
+API failure
+
+Backend:
+
+Missing columns
+Empty dataset
+Processing errors

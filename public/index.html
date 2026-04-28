@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Segmentation Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-content">
+                <h1>Customer Segmentation</h1>
+                <p>Upload a CSV file to analyze customer value segments using RFM and K-Means clustering.</p>
+            </div>
+        </header>
+
+        <main>
+            <section class="upload-section card">
+                <h2>Upload Data</h2>
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="csvFile" accept=".csv" class="file-input">
+                    <label for="csvFile" class="upload-label">
+                        <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        <span id="fileName">Click to select a CSV file</span>
+                    </label>
+                </div>
+                <button id="analyzeBtn" class="btn primary-btn" disabled>Analyze Data</button>
+                <div id="statusMessage" class="status-message"></div>
+            </section>
+
+            <div id="dashboard" class="dashboard-section hidden">
+                <div class="summary-cards">
+                    <div class="summary-card high-value">
+                        <h3>High Value</h3>
+                        <p id="highValueCount">0</p>
+                    </div>
+                    <div class="summary-card medium-value">
+                        <h3>Medium Value</h3>
+                        <p id="mediumValueCount">0</p>
+                    </div>
+                    <div class="summary-card low-value">
+                        <h3>Low Value</h3>
+                        <p id="lowValueCount">0</p>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card card">
+                        <h2>Segment Distribution</h2>
+                        <div class="canvas-container">
+                            <canvas id="barChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card card">
+                        <h2>Cluster Visualization (Recency vs Monetary)</h2>
+                        <div class="canvas-container">
+                            <canvas id="scatterPlot"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-section card">
+                    <h2>Customer Segments</h2>
+                    <div class="table-container">
+                        <table id="customerTable">
+                            <thead>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Recency (Days)</th>
+                                    <th>Frequency</th>
+                                    <th>Monetary ($)</th>
+                                    <th>Segment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data rows will be injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <button id="prevPage" class="btn small-btn" disabled>Previous</button>
+                        <span id="pageInfo">Page 1</span>
+                        <button id="nextPage" class="btn small-btn" disabled>Next</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
