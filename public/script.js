@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let globalClustersData = [];
     let currentPage = 1;
     const rowsPerPage = 10;
+    const API_URL = "https://data-segmentation.onrender.com/analyze";
     
     // Chart instances
     let barChartInstance = null;
@@ -80,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('file', selectedFile);
 
         try {
-            const response = await fetch('http://localhost:5000/analyze', {
+            const response = await fetch(API_URL, {
                 method: 'POST',
                 body: formData
             });
